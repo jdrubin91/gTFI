@@ -5,22 +5,6 @@ import numpy as np
 ##Functions used in gTFI pipeline
 
 #Input: Fasta file denoted by '>chr'
-#Output: Background nucleotide frequences [freq a, freq c, freq g, freq t]
-def background_freq(fastafile):
-    nucleotides = ['a','c','g','t']
-    total = 0
-    freq = [0] * 4
-    for line in open(fastafile):
-        if not '>' in line:
-            for nucleotide in line:
-                if nucleotide.lower() in nucleotides:
-                    freq[nucleotides.index(nucleotide.lower())] += 1.0
-                    total += 1.0
-                else:
-                    total += 1.0
-    return [x/total for x in freq]
-
-#Input: Fasta file denoted by '>chr'
 #Output: Dictionary[chrom] = 'sequence'
 def parse_fasta(fastafile):
     fastadict = dict()
@@ -32,7 +16,9 @@ def parse_fasta(fastafile):
             fastadict[chrom] += line
         
     return fastadict
-    
+
+#Input: Nucleotide sequence
+#Output: acgt counts and total nucleotide count
 def background_freq(sequence):
     nucleotides = ['a','c','g','t']
     freq = [0] * 5
