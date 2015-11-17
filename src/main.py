@@ -15,8 +15,6 @@ import motif_scanner
 intervalfile = sys.argv[1]
 #Specify path to fasta file containing genome sequence
 fastafile = sys.argv[2]
-#Compute background nucleotide frequencies
-background_frequencies = functions.background_freq(fastafile)
 #Specify window size of intervals
 windowsize = 3000
 #Specify transcription factors that will be analyzed, if none specified use all
@@ -27,7 +25,9 @@ TFs = sys.argv[3]
 databasefile = '../INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
 
 def run():
-    print "Running gTFI...\nConverting interval file to fasta..."
+    print "Running gTFI...\nCalculating background nucleotide frequencies..."
+    background_frequencies = functions.background_freq(fastafile)
+    print "Done\nConverting interval file to fasta..."
     intervaldict = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
     print "Done\nScanning intervals for motif occurrences..."
     newdict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
