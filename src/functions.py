@@ -32,6 +32,18 @@ def parse_fasta(fastafile):
             fastadict[chrom] += line
         
     return fastadict
+    
+def background_freq(sequence):
+    nucleotides = ['a','c','g','t']
+    freq = [0] * 5
+    for nucleotide in sequence:
+        if nucleotide.lower() in nucleotides:
+            freq[nucleotides.index(nucleotide.lower())] += 1.0
+            freq[5] += 1.0
+        else:
+            freq[5] += 1.0
+    
+    return freq
 
 #Input: databasefile = file containing PSSMs for all TFs, TFs = list of TFs to
 #obtain a PSSM for (if empty list, use all TFs in databasefile)

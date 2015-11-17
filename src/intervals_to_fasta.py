@@ -1,12 +1,22 @@
 __author__ = 'Jonathan Rubin'
 
 import functions
+from multiprocessing import Process
+from operator import add
 
 #Input: an interval file (any header lines must contain '#') columns: 'chrom'\t'start'
 #\t'stop' and a fasta file (human genome) formatted '>chrom'\n'sequence'
 #Output: dictionary with dictionary[interval] = 'sequence'
 def run(intervalfile,fastafile,pad):
     fastadict = functions.parse_fasta(fastafile)
+    background_frequencies = [0] * 5
+    print "Calculating background nucleotide frequencies..."
+    for chrom in fastadict:
+        p = Process(target=functions.background_freq, args=(fastadict[chrom]))
+        map(add, background_frequencies, p)
+        p.start()
+    background_frequencies = [x/background_frequencies[5] for x in background_frequencies]
+    print "Done\nConverting interval file to fasta..."
     intervaldict = dict()
     for line in open(intervalfile):
         if not '#' in line:
@@ -23,4 +33,4 @@ def run(intervalfile,fastafile,pad):
                     print "Window out of range, please decrease window size"
     
     
-    return intervaldict
+    return intervaldict, background_frequencies[0:4]
