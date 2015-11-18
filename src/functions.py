@@ -103,6 +103,14 @@ def reverse(sequence):
     
     return reverse
 
+#Input: a number
+#Output: ln(Input) unless input is 0 in which case return -np.inf
+def ln(a):
+    if a <= 0:
+        return -np.inf
+    else:
+        return math.log(a)
+
 #Input: Position-specific score matrix and a target sequence
 #Output: Log-likelihood ratio for each subsequence in sequence
 def LL_calc(PSSM,background,sequence):
@@ -118,8 +126,8 @@ def LL_calc(PSSM,background,sequence):
         for nucleotide in subsequence:
             if nucleotide.lower() in nucleotides:
                 j = nucleotides.index(nucleotide.lower())
-                score += math.log(float(PSSM[k][j]))
-                bscore += math.log(float(bPSSM[k][j]))
+                score += ln(float(PSSM[k][j]))
+                bscore += ln(float(bPSSM[k][j]))
             k += 1
         LL.append([i,motifwidth,score/bscore])
         
