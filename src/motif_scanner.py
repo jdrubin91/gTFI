@@ -37,15 +37,16 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
             sequencelist[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
         pool = Pool(processes=len(sequencelist))
         result = pool.map(functions.LL_calc,sequencelist)
+        print result
         TFIntervaldict[TF].append(result)
             
     return TFIntervaldict
 
-def  f(x,y):
-    return x*y
-if __name__ == "__main__":
-    pool = Pool(processes=4)              # start 4 worker processes
-    result = pool.apply_async(f, [10])    # evaluate "f(10)" asynchronously
-    print result.get(timeout=1)           # prints "100" unless your computer is *very* slow
-    for i in range(5):
-        print pool.map(f, range(10))
+#def  f(x,y):
+#    return x*y
+#if __name__ == "__main__":
+#    pool = Pool(processes=4)              # start 4 worker processes
+#    result = pool.apply_async(f, [10])    # evaluate "f(10)" asynchronously
+#    print result.get(timeout=1)           # prints "100" unless your computer is *very* slow
+#    for i in range(5):
+#        print pool.map(f, range(10))
