@@ -11,18 +11,19 @@ from multiprocessing import Process,Queue
 def run(intervaldict, background_frequencies, TFs, databasefile):
     TFIntervaldict = dict()
     TFPSSMdict = functions.parse_PSSM(databasefile,TFs)
+    sequencelist = list()
+    for interval in intervaldict:
+        forward = intervaldict[interval]
+        reverse = functions.reverse(forward)
+        sequencelist.append(forward)
+        sequencelist.append(reverse)
     for TF in TFPSSMdict:
         TFIntervaldict[TF] = list()
-        for interval in intervaldict:
-            forward = intervaldict[interval]
-            reverse = functions.reverse(forward)
-            pf = Process(target=functions.LL_calc, args=(TFPSSMdict[TF],background_frequencies,forward,))
-            pr = Process(target=functions.LL_calc, args=(TFPSSMdict[TF],background_frequencies,reverse,))
-            pf.start()
-            pr.start()
-            pf.join()
-            pr.join()
-            TFIntervaldict[TF].append(pf)
-            TFIntervaldict[TF].append(pr)
+        q = Queue()
+        for sequence in sequencelist:
+            p = Process(target=functions.LL_calc, args=(TFPSSMdict[TF],background_frequencies,sequence,q,))
+            p.start()
+            p.join()
+            TFIntervaldict[TF].append(q.get())
             
     return TFIntervaldict
