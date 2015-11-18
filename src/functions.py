@@ -54,7 +54,7 @@ def parse_fasta(fastafile,intervaldict):
                     fastadict[key] = ''
                 fastadict[key] += line[max(0,i-istart):min(i-istop,len(line))]
             i += len(line)
-        freq = [x/freq[4] for x in freq]
+    freq = [x/freq[4] for x in freq]
         
     return fastadict,freq[0:4]
 
