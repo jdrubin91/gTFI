@@ -55,8 +55,15 @@ def parse_fasta(fastafile,intervaldict):
                 istart,istop = intervaldict[chrom][j][0:2]
                 key = chrom + ':' + str(istart) + '-' + str(istop)
                 if not key in fastadict:
-                    fastadict[key] = ''
-                fastadict[key] += line[max(0,istart-i):min(istop-i,len(line))]
+                    k = 0
+                    fastadict[key] = np.zeros(istop-istart)
+                for nucleotide in line[max(0,istart-i):min(istop-i,len(line))]:
+                    if nucleotide.lower() in nucleotides:
+                        fastadict[key][k] = nucleotides.index(nucleotide.lower())
+                        k+=1
+                    else:
+                        fastadict[key][k] = -1
+                        k+=1
             i += len(line)
     freq = [x/freq[4] for x in freq]
         
@@ -86,20 +93,24 @@ def parse_PSSM(databasefile,TFs):
             elif line[0].isdigit():
                 TFdict[TF].append(line.strip().split())
     
+    for TF in TFdict:
+        TFdict[TF] = np.array(TFdict[TF])
     return TFdict
 
 #Input: Sequence in string of nucleotides
 #Output: Reverse complement of sequence
 def reverse(sequence):
-    forward = ['a','c','g','t']
-    complement = ['t','g','c','a']
-    reverse = ''
-    for nucleotide in sequence:
-        if nucleotide.lower() in forward:
-            i = forward.index(nucleotide.lower())
-            reverse += complement[i]
+    forward = [0,1,2,3]
+    complement = [3,2,1,0]
+    reverse = np.zeros(len(sequence))
+    i = 0
+    for index in sequence:
+        if index in forward:
+            reverse[i] = complement.index(index)
+            i += 1
         else:
-            reverse += nucleotide
+            reverse[i] = index
+            i += 1
     
     return reverse
 
@@ -114,20 +125,18 @@ def ln(a):
 #Input: Position-specific score matrix and a target sequence
 #Output: Log-likelihood ratio for each subsequence in sequence
 def LL_calc((PSSM,background,sequence)):
-    LL = list()
-    nucleotides = ['a','c','g','t']
     motifwidth = len(PSSM)
+    LL = np.zeros(len(sequence) - motifwidth)
     bPSSM = [background] * motifwidth
     for i in range(len(sequence)-motifwidth):
         subsequence = sequence[i:i+motifwidth]
         score = 0
         bscore = 0
         k = 0
-        for nucleotide in subsequence:
-            if nucleotide.lower() in nucleotides:
-                j = nucleotides.index(nucleotide.lower())
-                score += ln(float(PSSM[k][j]))
-                bscore += ln(float(bPSSM[k][j]))
+        for index in subsequence:
+            if index < 5:
+                score += ln(float(PSSM[k][index]))
+                bscore += ln(float(bPSSM[k][index]))
             k += 1
         LL.append([i,motifwidth,score/bscore])
         
