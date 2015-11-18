@@ -113,7 +113,7 @@ def ln(a):
 
 #Input: Position-specific score matrix and a target sequence
 #Output: Log-likelihood ratio for each subsequence in sequence
-def LL_calc(PSSM,background,sequence,q):
+def LL_calc(PSSM,background,sequence):
     LL = list()
     nucleotides = ['a','c','g','t']
     motifwidth = len(PSSM)
@@ -130,6 +130,5 @@ def LL_calc(PSSM,background,sequence,q):
                 bscore += ln(float(bPSSM[k][j]))
             k += 1
         LL.append([i,motifwidth,score/bscore])
-        q.put(LL)
         
-    #return LL
+    return LL
