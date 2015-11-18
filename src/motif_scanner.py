@@ -8,6 +8,10 @@ from multiprocessing import Process,Pool
 #HOCOMOCOv10
 #Output: TF_Analysis.txt - a file containing ________________________, temp.txt -
 #a file containing _______________________
+
+def collect_results(result):
+    result.extend(result)
+
 def run(intervaldict, background_frequencies, TFs, databasefile):
     TFIntervaldict = dict()
     TFPSSMdict = functions.parse_PSSM(databasefile,TFs)
@@ -19,14 +23,15 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         sequencelist.append(reverse)
     for TF in TFPSSMdict:
         print TF
+        results = []
         TFIntervaldict[TF] = list()
         pool = Pool(processes=len(sequencelist))
         for i in range(len(sequencelist)):
             sequencelist[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
-        #result = pool.apply_async(functions.LL_calc,args=(sequencelist,))
-        result = [pool.apply_async(functions.LL_calc,args=(sequencelist[i],)) for i in range(len(sequencelist))]
+        pool.apply_async(functions.LL_calc,args=(sequencelist,),callback=collect_results)
+        #result = [pool.apply_async(functions.LL_calc,args=(sequencelist[i],)) for i in range(len(sequencelist))]
         pool.close()
         pool.join()
-        TFIntervaldict[TF].append([x.get() for x in result])
+        TFIntervaldict[TF].append(results)
             
     return TFIntervaldict
