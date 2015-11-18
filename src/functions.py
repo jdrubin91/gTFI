@@ -126,7 +126,7 @@ def ln(a):
 #Output: Log-likelihood ratio for each subsequence in sequence
 def LL_calc((PSSM,background,sequence)):
     motifwidth = len(PSSM)
-    LL = np.zeros(len(sequence) - motifwidth)
+    LL = np.zeros((len(sequence) - motifwidth,3))
     bPSSM = [background] * motifwidth
     for i in range(len(sequence)-motifwidth):
         subsequence = sequence[i:i+motifwidth]
