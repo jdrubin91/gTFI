@@ -17,12 +17,13 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         reverse = functions.reverse(forward)
         sequencelist.append(forward)
         sequencelist.append(reverse)
-    pool = Pool(processes=len(sequencelist))
+
     for TF in TFPSSMdict:
         print TF
         TFIntervaldict[TF] = list()
         for i in range(len(sequencelist)):
             sequencelist[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
+        pool = Pool(processes=len(sequencelist))
         #result = pool.apply_async(functions.LL_calc,args=(sequencelist,))
         result = [pool.apply_async(functions.LL_calc,args=(sequencelist[i],)) for i in range(len(sequencelist))]
         pool.close()
