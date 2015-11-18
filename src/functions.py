@@ -32,7 +32,7 @@ def parse_fasta(fastafile,intervaldict):
     i,j,N=0,0,0
     for line in open(fastafile):
         if '>' in line[0]:
-            chrom = line[1:len(line)]
+            chrom = line.strip()[1:len(line)]
             i=0
             j,N=0,len(intervaldict[chrom])
         else:
