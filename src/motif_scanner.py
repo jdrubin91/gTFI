@@ -29,12 +29,12 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
 #        pool.close()
 #        #pool.join()
 #        TFIntervaldict[TF].append([x.get() for x in result])
-        
+    args = [0] * len(sequencelist)
     for TF in TFPSSMdict:
         print TF
         TFIntervaldict[TF] = list()
         for i in range(len(sequencelist)):
-            sequencelist[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
+            args[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
         pool = Pool()
         result = pool.map(functions.LL_calc,sequencelist)
         print result
