@@ -117,13 +117,9 @@ def LL_calc(PSSM,background,sequence):
         for nucleotide in subsequence:
             if nucleotide.lower() in nucleotides:
                 j = nucleotides.index(nucleotide.lower())
-                score += np.log(float(PSSM[k][j]))
-                bscore += np.log(float(bPSSM[k][j]))
+                score += float(PSSM[k][j])
+                bscore += float(bPSSM[k][j])
             k += 1
-        if score == 0:
-            score = 1
-        if bscore == 0:
-            bscore = 1
         LL.append([i,motifwidth,score/bscore])
         
     return LL
