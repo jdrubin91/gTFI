@@ -1,7 +1,7 @@
 __author__ = 'Jonathan Rubin'
 
 import functions
-from multiprocessing import Process
+from multiprocessing import Process,Queue
 
 #Input: intervaldict is a dictionary with dict[interval] = 'sequence', TFs is a 
 #list of transcription factors to be analyzed (if none specified, use all TFs in
@@ -18,11 +18,11 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
             reverse = functions.reverse(forward)
             pf = Process(target=functions.LL_calc, args=(TFPSSMdict[TF],background_frequencies,forward,))
             pr = Process(target=functions.LL_calc, args=(TFPSSMdict[TF],background_frequencies,reverse,))
-            TFIntervaldict[TF].append(pf)
-            TFIntervaldict[TF].append(pr)
             pf.start()
             pr.start()
             pf.join()
             pr.join()
+            TFIntervaldict[TF].append(pf)
+            TFIntervaldict[TF].append(pr)
             
     return TFIntervaldict
