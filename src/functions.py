@@ -61,19 +61,12 @@ def parse_fasta(fastafile,intervaldict):
         
     return fastadict,freq[0:4]
 
-#Input: Nucleotide sequence
-#Output: acgt counts and total nucleotide count
-def background_freq(sequence):
-    nucleotides = ['a','c','g','t']
-    freq = [0] * 5
-    for nucleotide in sequence:
-        if nucleotide.lower() in nucleotides:
-            freq[nucleotides.index(nucleotide.lower())] += 1.0
-            freq[5] += 1.0
-        else:
-            freq[5] += 1.0
+#Return parent directory
+def parent_dir(directory):
+    pathlist = directory.split('/')
+    newdir = '/'.join(pathlist[0:len(pathlist)-1])
     
-    return freq
+    return newdir
 
 #Input: databasefile = file containing PSSMs for all TFs, TFs = list of TFs to
 #obtain a PSSM for (if empty list, use all TFs in databasefile)

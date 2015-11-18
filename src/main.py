@@ -5,6 +5,7 @@ __author__ = 'Jonathan Rubin'
 #TFs in HOCOMOCOv9 database) returns a list of specified TFs activation plotted
 #as 1D heatmaps.
 
+import os
 import sys
 import functions
 import intervals_to_fasta
@@ -22,12 +23,11 @@ windowsize = 3000
 TFs = sys.argv[3]
 #Specify transcription factor databse of position-specific scoring matrices (can
 #use any database in MEME format)
-databasefile = '../INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
+databasefile = functions.parent_dir(os.getcwd()) + 'INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
 
 def run():
     print "Running gTFI..."
     fastadict,background_frequencies = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
-    print fastadict, background_frequencies
     print "Done\nScanning intervals for motif occurrences..."
     newdict = motif_scanner.run(fastadict, background_frequencies, TFs, databasefile)
     print newdict
