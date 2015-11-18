@@ -34,7 +34,10 @@ def parse_fasta(fastafile,intervaldict):
         if '>' in line[0]:
             chrom = line.strip()[1:len(line)]
             i=0
-            j,N=0,len(intervaldict[chrom])
+            if chrom in intervaldict:
+                j,N=0,len(intervaldict[chrom])
+            else:
+                j,N = 0,0
         else:
             line = line.strip()
             for nucleotide in line:
