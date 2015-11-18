@@ -9,7 +9,7 @@ from operator import add
 #Output: dictionary with dictionary[interval] = 'sequence'
 def run(intervalfile,fastafile,pad):
     intervaldict = functions.parse_intervalfile(intervalfile,pad)
-    fastadict, background_frequencies = functions.parse_fasta(intervalfile,intervaldict)
+    fastadict, background_frequencies = functions.parse_fasta(fastafile,intervaldict)
     
     #fastadict = functions.parse_fasta(fastafile)
     #background_frequencies = [0] * 5
