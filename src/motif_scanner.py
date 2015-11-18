@@ -36,7 +36,7 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         for i in range(len(sequencelist)):
             sequencelist[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
         pool = Pool(processes=len(sequencelist))
-        print sequencelist
+        print len(sequencelist)
         result = pool.map(functions.LL_calc,sequencelist)
         TFIntervaldict[TF].append(result)
             
