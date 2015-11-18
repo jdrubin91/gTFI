@@ -25,7 +25,8 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
             sequencelist[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
         #result = pool.apply_async(functions.LL_calc,args=(sequencelist,))
         result = [pool.apply_async(functions.LL_calc,args=(sequencelist[i],)) for i in range(len(sequencelist))]
-            
+        pool.close()
+        pool.join()
         TFIntervaldict[TF].append([x.get() for x in result])
             
     return TFIntervaldict
