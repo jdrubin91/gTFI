@@ -1,21 +1,61 @@
 __author__ = 'Jonathan Rubin'
 
 import numpy as np
+from operator import itemgetter
 
 ##Functions used in gTFI pipeline
 
+#Input: interval file formatted 'chomr\tstart\tstop' (any header lines must have
+#first character = '#'
+#Output: dictionary of ordered intervals by chrom (dict[chrom] = [sorted intervals])
+def parse_intervalfile(intervalfile,pad):
+    intervaldict = dict()
+    for line in open(intervalfile):
+        if not '#' in line[0]:
+            chrom,start,stop = line.strip().split()[0:3]
+            mid = (float(start) + float(stop))/2
+            if not chrom in intervaldict:
+                intervaldict[chrom] = list()
+            intervaldict[chrom].append([int(mid-pad),int(mid+pad)])
+    for chrom in intervaldict:
+        intervaldict[chrom] = sorted(intervaldict[chrom],key=itemgetter(0))
+    
+            
+    return intervaldict
+
 #Input: Fasta file denoted by '>chr'
 #Output: Dictionary[chrom] = 'sequence'
-def parse_fasta(fastafile):
+def parse_fasta(fastafile,intervaldict):
+    nucleotides = ['a','c','g','t']
+    freq = [0] * 5
     fastadict = dict()
     for line in open(fastafile):
-        if '>' in line:
+        if '>' in line[0]:
             chrom = line[1:len(line)]
-            fastadict[chrom] = ''
+            i=0
+            j,N=0,len(intervaldict[chrom])
         else:
-            fastadict[chrom] += line
+            line = line.strip()
+            for nucleotide in line:
+                if nucleotide.lower() in nucleotides:
+                    freq[nucleotides.index(nucleotide.lower())] += 1.0
+                    freq[5] += 1.0
+                else:
+                    freq[5] += 1.0
+            start = i
+            stop  = i + len(line)
+            while j < N and intervaldict[chrom][j][1] < start:
+                j+=1
+            if j < N and intervaldict[chrom][j][0] < stop:
+                istart,istop = intervaldict[chrom][j][0:2]
+                key = chrom + ':' + istart + '-' + istop
+                if not key in fastadict:
+                    fastadict[key] = ''
+                fastadict[key] += line[max(0,i-istart):min(i-istop,len(line))]
+            i += len(line)
+        freq = [x/freq[5] for x in freq]
         
-    return fastadict
+    return fastadict,freq[0:4]
 
 #Input: Nucleotide sequence
 #Output: acgt counts and total nucleotide count

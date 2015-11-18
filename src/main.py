@@ -26,9 +26,9 @@ databasefile = '../INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
 
 def run():
     print "Running gTFI..."
-    intervaldict,background_frequencies = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
+    fastadict,background_frequencies = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
     print "Done\nScanning intervals for motif occurrences..."
-    newdict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
+    newdict = motif_scanner.run(fastadict, background_frequencies, TFs, databasefile)
     print newdict
     
     print "Done"
