@@ -39,9 +39,9 @@ def parse_fasta(fastafile,intervaldict):
             for nucleotide in line:
                 if nucleotide.lower() in nucleotides:
                     freq[nucleotides.index(nucleotide.lower())] += 1.0
-                    freq[5] += 1.0
+                    freq[4] += 1.0
                 else:
-                    freq[5] += 1.0
+                    freq[4] += 1.0
             start = i
             stop  = i + len(line)
             while j < N and intervaldict[chrom][j][1] < start:
@@ -53,7 +53,7 @@ def parse_fasta(fastafile,intervaldict):
                     fastadict[key] = ''
                 fastadict[key] += line[max(0,i-istart):min(i-istop,len(line))]
             i += len(line)
-        freq = [x/freq[5] for x in freq]
+        freq = [x/freq[4] for x in freq]
         
     return fastadict,freq[0:4]
 
