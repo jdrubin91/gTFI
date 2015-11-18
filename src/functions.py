@@ -134,10 +134,10 @@ def LL_calc((PSSM,background,sequence)):
         bscore = 0
         k = 0
         for index in subsequence:
-            if index < 5:
+            if index > 0:
                 score += ln(float(PSSM[k][index]))
                 bscore += ln(float(bPSSM[k][index]))
             k += 1
-        LL.append([i,motifwidth,score/bscore])
+        LL[i] = [i,motifwidth,score/bscore]
         
     return LL
