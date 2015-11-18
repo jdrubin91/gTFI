@@ -47,7 +47,7 @@ def parse_fasta(fastafile,intervaldict):
             stop  = i + len(line)
             while j < N and intervaldict[chrom][j][1] < start:
                 j+=1
-            if j < N and intervaldict[chrom][j][1] > start:
+            if j < N and intervaldict[chrom][j][0] < stop:
                 istart,istop = intervaldict[chrom][j][0:2]
                 key = chrom + ':' + istart + '-' + istop
                 if not key in fastadict:
