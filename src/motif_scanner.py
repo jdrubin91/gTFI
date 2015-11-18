@@ -27,7 +27,13 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         #result = pool.apply_async(functions.LL_calc,args=(sequencelist,))
         result = [pool.apply_async(functions.LL_calc,args=(sequencelist[i],)) for i in range(len(sequencelist))]
         pool.close()
-        pool.join()
+        #pool.join()
         TFIntervaldict[TF].append([x.get() for x in result])
             
     return TFIntervaldict
+
+if __name__ == "__main__":
+    def LL_calc(x,y,z):
+        return x*y*z
+    
+    a = [0] * 5
