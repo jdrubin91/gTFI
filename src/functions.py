@@ -122,6 +122,12 @@ def ln(a):
     else:
         return math.log(a)
 
+def divide(a,b):
+    if b == 0:
+        return np.inf
+    else:
+        return a/b
+
 #Input: Position-specific score matrix and a target sequence
 #Output: Log-likelihood ratio for each subsequence in sequence
 def LL_calc((PSSM,background,sequence)):
@@ -138,6 +144,6 @@ def LL_calc((PSSM,background,sequence)):
                 score += ln(float(PSSM[k][int(index)]))
                 bscore += ln(float(bPSSM[k][int(index)]))
             k += 1
-        LL[i] = [i,motifwidth,score/bscore]
+        LL[i] = [i,motifwidth,divide(score,bscore)]
         
     return LL
