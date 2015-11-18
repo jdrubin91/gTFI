@@ -61,13 +61,6 @@ def parse_fasta(fastafile,intervaldict):
         
     return fastadict,freq[0:4]
 
-#Return parent directory
-def parent_dir(directory):
-    pathlist = directory.split('/')
-    newdir = '/'.join(pathlist[0:len(pathlist)-1])
-    
-    return newdir
-
 #Input: databasefile = file containing PSSMs for all TFs, TFs = list of TFs to
 #obtain a PSSM for (if empty list, use all TFs in databasefile)
 #Output: dictionary formatted dict[TF] = PSSM 
