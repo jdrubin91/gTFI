@@ -120,6 +120,10 @@ def LL_calc(PSSM,background,sequence):
                 score += np.log(float(PSSM[k][j]))
                 bscore += np.log(float(bPSSM[k][j]))
             k += 1
+        if score == 0:
+            score = 1
+        if bscore == 0:
+            bscore = 1
         LL.append([i,motifwidth,score/bscore])
         
     return LL
