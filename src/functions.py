@@ -29,6 +29,7 @@ def parse_fasta(fastafile,intervaldict):
     nucleotides = ['a','c','g','t']
     freq = [0] * 5
     fastadict = dict()
+    i=0
     for line in open(fastafile):
         if '>' in line[0]:
             chrom = line[1:len(line)]
