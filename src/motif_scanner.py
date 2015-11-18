@@ -22,5 +22,7 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
             TFIntervaldict[TF].append(pr)
             pf.start()
             pr.start()
+            pf.join()
+            pr.join()
             
     return TFIntervaldict

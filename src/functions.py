@@ -1,6 +1,7 @@
 __author__ = 'Jonathan Rubin'
 
 import numpy as np
+import math
 from operator import itemgetter
 
 ##Functions used in gTFI pipeline
@@ -117,8 +118,8 @@ def LL_calc(PSSM,background,sequence):
         for nucleotide in subsequence:
             if nucleotide.lower() in nucleotides:
                 j = nucleotides.index(nucleotide.lower())
-                score += float(PSSM[k][j])
-                bscore += float(bPSSM[k][j])
+                score += math.log(float(PSSM[k][j]))
+                bscore += math.log(float(bPSSM[k][j]))
             k += 1
         LL.append([i,motifwidth,score/bscore])
         
