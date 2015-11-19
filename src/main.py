@@ -25,13 +25,12 @@ TFs = sys.argv[3]
 #Specify transcription factor databse of position-specific scoring matrices (can
 #use any database in MEME format)
 databasefile = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
-print databasefile
 
 def run():
     start_time = time.time()
     print "Running gTFI...\nCalculating background frequencies and converting files to fasta format..."
     fastadict,background_frequencies = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
-    print "Done\nScanning intervals for motif occurrences..."
+    print "Done in: %s\nScanning intervals for motif occurrences..." %(time.time()-start_time)
     newdict = motif_scanner.run(fastadict, background_frequencies, TFs, databasefile)
     print newdict
-    print "Done in: %s" %(time.time() - start_time)
+    print "Done in: %s" %(time.time()-start_time)

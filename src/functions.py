@@ -6,7 +6,8 @@ from operator import itemgetter
 
 ##Functions used in gTFI pipeline
 
-#Return parent directory
+#Input: A directory
+#Output: Parent directory
 def parent_dir(directory):
     pathlist = directory.split('/')
     newdir = '/'.join(pathlist[0:len(pathlist)-1])
@@ -14,7 +15,7 @@ def parent_dir(directory):
     return newdir
 
 #Input: interval file formatted 'chomr\tstart\tstop' (any header lines must have
-#first character = '#'
+#first character = '#')
 #Output: dictionary of ordered intervals by chrom (dict[chrom] = [sorted intervals])
 def parse_intervalfile(intervalfile,pad):
     intervaldict = dict()
@@ -31,8 +32,9 @@ def parse_intervalfile(intervalfile,pad):
             
     return intervaldict
 
-#Input: Fasta file denoted by '>chr'
-#Output: Dictionary[chrom] = 'sequence'
+#Input: Fasta file denoted by '>chr', a list of intervals formatted 'chr\tstart\tstop'
+#Output: Dictionary['chr:start-stop'] = sequence (represented as 0-3 for acgt and -1
+#for any other nucleotide)
 def parse_fasta(fastafile,intervaldict):
     nucleotides = ['a','c','g','t']
     freq = [0] * 5
