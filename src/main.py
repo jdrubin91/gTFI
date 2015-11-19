@@ -24,7 +24,7 @@ windowsize = 3000
 TFs = sys.argv[3]
 #Specify transcription factor databse of position-specific scoring matrices (can
 #use any database in MEME format)
-databasefile = os.path.dirname(os.path.abspath(__file__)) + '/gTFI/INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
+databasefile = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
 print databasefile
 
 def run():

@@ -6,6 +6,13 @@ from operator import itemgetter
 
 ##Functions used in gTFI pipeline
 
+#Return parent directory
+def parent_dir(directory):
+    pathlist = directory.split('/')
+    newdir = '/'.join(pathlist[0:len(pathlist)-1])
+    
+    return newdir
+
 #Input: interval file formatted 'chomr\tstart\tstop' (any header lines must have
 #first character = '#'
 #Output: dictionary of ordered intervals by chrom (dict[chrom] = [sorted intervals])
