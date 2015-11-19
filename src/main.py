@@ -10,6 +10,7 @@ import sys
 import functions
 import intervals_to_fasta
 import motif_scanner
+import time
 
 
 #Specify path to interval file
@@ -26,12 +27,10 @@ TFs = sys.argv[3]
 databasefile = os.getcwd() + '/gTFI/INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
 
 def run():
+    start_time = time.time()
     print "Running gTFI...\nCalculating background frequencies and converting files to fasta format..."
     fastadict,background_frequencies = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
-    for key in fastadict:
-        print len(fastadict[key])
     print "Done\nScanning intervals for motif occurrences..."
     newdict = motif_scanner.run(fastadict, background_frequencies, TFs, databasefile)
     print newdict
-    
-    print "Done"
+    print "Done in: %s" %(time.time() - start_time)
