@@ -16,12 +16,14 @@ def parent_dir(directory):
 #Input: interval file formatted 'chomr\tstart\tstop\tinfo' (any header lines 
 #must have first character = '#')
 #Output: dictionary of ordered intervals of specified window size by chrom 
-#(dict[chrom] = [start,stop,info])
+#(dict[chrom] = [start,stop,info]), and total number of intervals in intervalfile
 def parse_intervalfile(intervalfile,pad):
     intervaldict = dict()
+    totalintervals = 0
     with open(intervalfile) as FILE:
         for line in FILE:
             if '#' != line[0]:
+                totalintervals += 1
                 chrom,start,stop = line.strip().split()[0:3]
                 mid = (float(start) + float(stop))/2
                 if not chrom in intervaldict:
@@ -30,11 +32,11 @@ def parse_intervalfile(intervalfile,pad):
     for chrom in intervaldict:
         intervaldict[chrom].sort()
     
-    return intervaldict
+    return intervaldict, totalintervals
 
 #Input: Fasta file denoted by '>chr', a list of intervals formatted 'chr\tstart\tstop'
-#Output: Dictionary['chr:start-stop'] = sequence (represented as 0-3 for acgt and -1
-#for any other nucleotide)
+#Output: Dictionary[chrom] = [start,stop,sequence] (sequence represented as 0-4 for 
+#acgtn)
 def parse_fasta(fastafile,intervaldict):
     nucleotides = {"a": 0, "t":0, "c": 0, "g":0,"n":0, "A":0, "T":0, "C":0, "G":0, "N":0}
     indexes = ['aA','cC','gG','tT','nN']
@@ -105,18 +107,11 @@ def parse_PSSM(databasefile,TFs):
 #Input: Sequence in string of nucleotides
 #Output: Reverse complement of sequence
 def reverse(sequence):
-    forward = [0,1,2,3]
-    complement = [3,2,1,0]
-    reverse = np.zeros(len(sequence))
-    i = 0
+    forward = ['0','1','2','3','4']
+    complement = ['3','2','1','0','4']
+    reverse = ""
     for index in sequence:
-        index = int(index)
-        if index in forward:
-            reverse[i] = complement.index(index)
-            i += 1
-        else:
-            reverse[i] = index
-            i += 1
+        reverse += complement[forward.index(index)]
     
     return reverse
 
@@ -140,9 +135,10 @@ def divide(a,b):
 #Output: Log-likelihood ratio for each subsequence in sequence
 def LL_calc((PSSM,background,sequence)):
     motifwidth = len(PSSM)
-    LL = np.zeros((len(sequence) - motifwidth,3))
+    seqlen = len(sequence)
+    LL = np.zeros((seqlen - motifwidth,3))
     bPSSM = [background] * motifwidth
-    for i in range(len(sequence)-motifwidth):
+    for i in range(seqlen-motifwidth):
         subsequence = sequence[i:i+motifwidth]
         score = 0
         bscore = 0
@@ -150,8 +146,8 @@ def LL_calc((PSSM,background,sequence)):
         for index in subsequence:
             index = int(index)
             if index < 4:
-                score += ln(float(PSSM[k][int(index)]))
-                bscore += ln(float(bPSSM[k][int(index)]))
+                score += ln(float(PSSM[k][index]))
+                bscore += ln(float(bPSSM[k][index]))
             k += 1
         LL[i] = [i,motifwidth,divide(score,bscore)]
         

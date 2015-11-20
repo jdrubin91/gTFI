@@ -8,7 +8,7 @@ import functions
 #Output: dictionary with dictionary[interval] = 'sequence', and background frequencies
 #of nucleotides in fasta file
 def run(intervalfile,fastafile,pad):
-    intervaldict = functions.parse_intervalfile(intervalfile,pad)
-    fastadict, background_frequencies = functions.parse_fasta(fastafile,intervaldict)    
+    intervaldict,totalintervals = functions.parse_intervalfile(intervalfile,pad)
+    intervaldict, background_frequencies = functions.parse_fasta(fastafile,intervaldict)    
     
-    return fastadict, background_frequencies
+    return intervaldict, background_frequencies, totalintervals

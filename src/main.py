@@ -29,10 +29,9 @@ databasefile = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) 
 def run():
     start_time = time.time()
     print "Running gTFI...\nCalculating background frequencies and converting files to fasta format..."
-    fastadict,background_frequencies = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
-    print fastadict
-    print background_frequencies
+    intervaldict,background_frequencies,totalintervals = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
+    print background_frequencies,totalintervals
     print "Done in: %s\nScanning intervals for motif occurrences..." %(time.time()-start_time)
-    newdict = motif_scanner.run(fastadict, background_frequencies, TFs, databasefile)
+    newdict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
     print newdict
     print "Done in: %s" %(time.time()-start_time)
