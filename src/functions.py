@@ -37,6 +37,8 @@ def parse_intervalfile(intervalfile,pad):
 #for any other nucleotide)
 def parse_fasta(fastafile,intervaldict):
     nucleotides = {"a": 0, "t":0, "c": 0, "g":0,"n":0, "A":0, "T":0, "C":0, "G":0, "N":0}
+    indexes = ['aA','cC','gG','tT','nN']
+    indexlen = len(indexes)
     with open(fastafile) as FILE:
         chrom,start,intervals = None,None,None
         for line in FILE:
@@ -44,20 +46,20 @@ def parse_fasta(fastafile,intervaldict):
                 if intervals is not None:
                     intervaldict[chrom] = intervals
                 chrom = line[1:].strip()
-                i=0
+                i = 0
                 if chrom in intervaldict:
-                    j,N,intervals=0,len(intervaldict[chrom]),intervaldict[chrom]
+                    j,N,intervals = 0,len(intervaldict[chrom]),intervaldict[chrom]
                 else:
                     j,N,intervals = 0,0,None
             else:
                 try:
-                    k=i
+                    k = i
                     while j < N and intervals[j][1] < i:
-                        j+=1
+                        j += 1
                     for nucleotide in line.strip():
                         nucleotides[nucleotide] += 1
                         if j < N and intervals[j][0] < k:
-                            intervals[j][2] += nucleotide
+                            intervals[j][2] += [i for i in range(indexlen) if nucleotide in indexes[i]][0]
                         k += 1
                     i=k
                 except:
@@ -125,6 +127,8 @@ def ln(a):
     else:
         return math.log(a)
 
+#Input: Two numbers
+#Ouptut: a/b unless b = 0 in which case return np.inf
 def divide(a,b):
     if b == 0:
         return np.inf
