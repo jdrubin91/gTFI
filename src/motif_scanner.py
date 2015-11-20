@@ -1,7 +1,7 @@
 __author__ = 'Jonathan Rubin'
 
 import functions
-from multiprocessing import Process,Pool
+from multiprocessing import Pool
 
 #Input: intervaldict is a dictionary with dict[interval] = 'sequence', background_frequencies 
 #is a list with 4 items indicating the background frequencies of acgt in the 
@@ -14,11 +14,12 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
     TFIntervaldict = dict()
     TFPSSMdict = functions.parse_PSSM(databasefile,TFs)
     sequencelist = list()
-    for interval in intervaldict:
-        forward = intervaldict[interval]
-        reverse = functions.reverse(forward)
-        sequencelist.append(forward)
-        sequencelist.append(reverse)
+    for chrom in intervaldict:
+        for interval in intervaldict[chrom]:
+            forward = interval[2]
+            reverse = functions.reverse(forward)
+            sequencelist.append(forward)
+            sequencelist.append(reverse)
     args = [0] * len(sequencelist)
     for TF in TFPSSMdict:
         print TF

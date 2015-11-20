@@ -2,7 +2,7 @@ __author__ = 'Jonathan Rubin'
 #gTFI pipeline.  Takes in a file with bidirectional intervals, a genome fasta
 #file and an optional transcription factor argument which determines which 
 #transcription factor (TF) motifs will be searched (if nothing specified, return all
-#TFs in HOCOMOCOv9 database) returns a list of specified TFs activation plotted
+#TFs in HOCOMOCOv10 database) returns a list of specified TFs activation plotted
 #as 1D heatmaps.
 
 import os
