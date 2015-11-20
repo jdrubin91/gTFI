@@ -68,7 +68,6 @@ def parse_fasta(fastafile,intervaldict):
         total += nucleotides[key]
         if key.isupper():
             nucleotides[key.lower()] += nucleotides[key]
-            nucleotides.pop(key)
     freq = [nucleotides['a']/total,nucleotides['c']/total,nucleotides['g']/total,nucleotides['t']/total]
         
     return intervaldict,freq
