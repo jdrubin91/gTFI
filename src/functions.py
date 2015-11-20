@@ -59,12 +59,12 @@ def parse_fasta(fastafile,intervaldict):
                     for nucleotide in line.strip():
                         nucleotides[nucleotide] += 1
                         if j < N and intervals[j][0] < k:
-                            intervals[j][2] += [i for i in range(indexlen) if nucleotide in indexes[i]][0]
+                            intervals[j][2] += str([i for i in range(indexlen) if nucleotide in indexes[i]][0])
                         k += 1
                     i=k
                 except:
                     print "line: " + str(i) + " contains unknown sequence character: " + line
-                    raise TypeError,"line: " + str(i) + "contains unknown sequence character: " + line
+                    raise TypeError,"line: " + str(i) + " contains unknown sequence character: " + line
     total = 0
     for key in nucleotides:
         total += nucleotides[key]
@@ -110,6 +110,7 @@ def reverse(sequence):
     reverse = np.zeros(len(sequence))
     i = 0
     for index in sequence:
+        index = int(index)
         if index in forward:
             reverse[i] = complement.index(index)
             i += 1
@@ -147,7 +148,8 @@ def LL_calc((PSSM,background,sequence)):
         bscore = 0
         k = 0
         for index in subsequence:
-            if index > 0:
+            index = int(index)
+            if index < 4:
                 score += ln(float(PSSM[k][int(index)]))
                 bscore += ln(float(bPSSM[k][int(index)]))
             k += 1
