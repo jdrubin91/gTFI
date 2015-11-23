@@ -14,13 +14,14 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
     TFIntervaldict = dict()
     TFPSSMdict = functions.parse_PSSM(databasefile,TFs)
     sequencelist = list()
-    print intervaldict['chr1'][0][2]
     for chrom in intervaldict:
         for interval in intervaldict[chrom]:
             forward = interval[2]
             reverse = functions.reverse(forward)
             sequencelist.append(forward)
             sequencelist.append(reverse)
+    print sequencelist[0]
+    print sequencelist[1]
     args = [0] * len(sequencelist)
     for TF in TFPSSMdict:
         print TF
