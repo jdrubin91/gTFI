@@ -20,8 +20,7 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
             reverse = functions.reverse(forward)
             sequencelist.append(forward)
             sequencelist.append(reverse)
-    print sequencelist[0]
-    print sequencelist[1]
+    print "sequencelist: ", sequencelist
     args = [0] * len(sequencelist)
     for TF in TFPSSMdict:
         print TF
