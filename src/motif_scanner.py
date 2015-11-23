@@ -18,8 +18,6 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         for interval in intervaldict[chrom]:
             forward = interval[2]
             reverse = functions.reverse(forward)
-            print "forward: ", forward
-            print "reverse: ", reverse
             sequencelist.append(forward)
             sequencelist.append(reverse)
     args = [0] * len(sequencelist)
@@ -29,7 +27,6 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         for i in range(len(sequencelist)):
             args[i] = (TFPSSMdict[TF],background_frequencies,sequencelist[i])
         pool = Pool(processes=64)
-        print args[1]
         result = pool.map(functions.LL_calc,args)
         TFIntervaldict[TF].append(result)
             

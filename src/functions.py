@@ -31,7 +31,7 @@ def parse_intervalfile(intervalfile,pad):
                 intervaldict[chrom].append([int(mid-pad),int(mid+pad),""])
     for chrom in intervaldict:
         intervaldict[chrom].sort()
-    
+    print intervaldict
     return intervaldict, totalintervals
 
 #Input: Fasta file denoted by '>chr', a list of intervals formatted 'chr\tstart\tstop'
