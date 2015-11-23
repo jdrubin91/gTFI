@@ -68,12 +68,13 @@ def parse_fasta(fastafile,intervaldict):
                     print "line: " + str(i) + " contains unknown sequence character: " + line
                     raise TypeError,"line: " + str(i) + " contains unknown sequence character: " + line
     total = 0
-    print nucleotides
+
     for key in nucleotides:
         if key.isupper():
             nucleotides[key.lower()] += nucleotides[key]
         total += nucleotides[key]
     print total
+    print nucleotides
     freq = [nucleotides['a']/total,nucleotides['c']/total,nucleotides['g']/total,nucleotides['t']/total]
         
     return intervaldict,freq
