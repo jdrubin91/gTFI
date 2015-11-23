@@ -14,6 +14,7 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
     TFIntervaldict = dict()
     TFPSSMdict = functions.parse_PSSM(databasefile,TFs)
     sequencelist = list()
+    print intervaldict['chr1'][0][2]
     for chrom in intervaldict:
         for interval in intervaldict[chrom]:
             forward = interval[2]
