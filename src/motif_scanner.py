@@ -18,9 +18,10 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         for interval in intervaldict[chrom]:
             forward = interval[2]
             reverse = functions.reverse(forward)
+            print "forward: ", forward
+            print "reverse: ", reverse
             sequencelist.append(forward)
             sequencelist.append(reverse)
-    print "sequencelist: ", sequencelist
     args = [0] * len(sequencelist)
     for TF in TFPSSMdict:
         print TF
