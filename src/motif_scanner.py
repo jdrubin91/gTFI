@@ -30,7 +30,5 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         pool = Pool(processes=64)
         result = pool.map(functions.LL_calc,args)
         TFIntervaldict[TF].append(result)
-    
-    print "Overlapping intervals: ", count
             
     return TFIntervaldict
