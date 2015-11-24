@@ -1,28 +1,7 @@
 __author__ = 'Joseph Azofeifa'
 
 import numpy as np
-import matplotlib.pyplot as plt
 import math
-
-#Simulates data for testing purposes
-def simulate(w=0.5, s=10, N=1000, SHOW=True):
-	XS 	= list()
-	for n in range(N):
-		U 	= np.random.uniform(0,1)
-		if U < w:
-			x 	= np.random.normal(0,s,1)[0]
-		else:
-			x 	= np.random.uniform(-100,100)
-		XS.append(x)
-	if SHOW:
-		plt.hist(XS, bins=200)
-		plt.show()
-	counts,edges 	= np.histogram(XS, bins=200)
-	edges 			= edges[1:]
-	X 				= np.zeros((len(counts), 2))
-	X[:,0] 			= edges
-	X[:,1] 			= counts
-	return X
 
 #pdf of normal distribution
 def normal(x, mu, si):
@@ -52,9 +31,3 @@ def fit(X, s=100,mu=0):
 		w 	= EN / (EU+ EN)
 		t+=1
 	return w
-
-
-
-if __name__ == "__main__":
-	X 	= simulate(w=0.3, N=10000, SHOW=False)
-	fit(X)
