@@ -12,8 +12,9 @@ def run(TFIntervaldict):
     for TF in TFIntervaldict:
         X = list()
         for interval in TFIntervaldict[TF]:
-            for position in interval:
-                print position
+            for position1 in interval:
+                for position2 in position1:
+                    print position2
             
         #    if window[2] != np.inf:
         #        X.append((window[0]+window[1]/2)-1500)
