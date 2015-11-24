@@ -19,7 +19,7 @@ def run(TFIntervaldict,pad):
                        X.append((position[0]+position[1]/2)-pad)
             
 
-        print X
+        #print X
         
             
     #distances = dict()
