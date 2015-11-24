@@ -35,5 +35,6 @@ def run():
     print "Done in: %ss\nScanning intervals for motif occurrences..." %(time.time()-start_time)
     TFIntervaldict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
     print "Done in: %ss\nAnalyzing motif distances..." %(time.time()-start_time)
-    motif_distance_analyzer.run(TFIntervaldict,windowsize/2)
+    distances = motif_distance_analyzer.run(TFIntervaldict,windowsize/2)
+    print distances
     print "Done in: %ss" %(time.time()-start_time)
