@@ -15,11 +15,11 @@ import functions
 def run(distancedict,outfiledir,bins):
     sorted_distances = sorted(distancedict.items(), key=itemgetter(1))
     outfile = open(outfiledir,'w')
-    outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)\tDistance List")
+    outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)")
     outfile.write("\n")
     column_labels = list()
     for item in sorted_distances:
-        column_labels.append(item[0])
+        column_labels.append(item[0].split('_')[0])
         outfile.write(str(item[0]))
         outfile.write("\t")
         outfile.write(str(item[1][0]))
@@ -46,7 +46,7 @@ def run(distancedict,outfiledir,bins):
             matrix[k,j] = matrix[k,j]/maximum
     
     fig, ax = plt.subplots()
-    heatmap = ax.pcolor(matrix, cmap=plt.cm.Blues)
+    heatmap = ax.pcolor(matrix, cmap=plt.cm.hot)
     
     # put the major ticks at the middle of each cell
     ax.set_xticks(np.arange(matrix.shape[0])+0.5, minor=False)
