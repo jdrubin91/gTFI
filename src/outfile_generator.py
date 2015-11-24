@@ -33,6 +33,6 @@ def run(distancedict,outfiledir,bins):
     matrix = np.zeros((bins,len(sorted_distances)))
     for i in range(len(sorted_distances)):
         x = np.histogram(sorted_distances[i][1][4],bins)[0]
-        matrix[i,:] = x
+        matrix[:,i] = x
     
     print matrix
