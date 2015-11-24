@@ -56,4 +56,4 @@ def run(distancedict,outfiledir,bins):
     ax.xaxis.tick_top()
     
     ax.set_xticklabels(column_labels, minor=False)
-    plt.savefig(functions.parent_dir(outfiledir) + '/OUTFILES/figure.png')
+    plt.savefig(functions.parent_dir(outfiledir) + '/figure.png')
