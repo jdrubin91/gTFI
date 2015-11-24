@@ -27,6 +27,10 @@ TFs = sys.argv[3]
 #Specify transcription factor databse of position-specific scoring matrices (can
 #use any database in MEME format)
 databasefile = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
+#Specify bin number for 1D heatmaps
+bins = 200
+#Specify threshold for likelihood score
+threshold = 0.5
 #Specify outfile directory
 outfiledir = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/OUTFILES/TF_Activation.txt'
 
@@ -38,6 +42,6 @@ def run():
     print "Done in: %ss\nScanning intervals for motif occurrences..." %(time.time()-start_time)
     TFIntervaldict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
     print "Done in: %ss\nAnalyzing motif distances..." %(time.time()-start_time)
-    distances = motif_distance_analyzer.run(TFIntervaldict,windowsize/2)
-    outfile_generator.run(distances,outfiledir)
+    distances = motif_distance_analyzer.run(TFIntervaldict,windowsize/2,threshold,bins)
+    outfile_generator.run(distances,outfiledir,bins)
     print "Done in: %ss" %(time.time()-start_time)

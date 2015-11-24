@@ -13,7 +13,7 @@ import scipy.stats
 #to calculate distance of motif to center of interval, and threshold for likelihood
 #score
 #Output:
-def run(TFIntervaldict,pad,threshold=0.5):
+def run(TFIntervaldict,pad,threshold,bins):
     distances = dict()
     for TF in TFIntervaldict:
         x = list()
@@ -23,7 +23,7 @@ def run(TFIntervaldict,pad,threshold=0.5):
                     if position[2] != np.inf and position[2] > threshold:
                        x.append((position[0]+position[1]/2)-pad)
         if len(x) > 0:
-            counts,edges 	= np.histogram(x, bins=200)
+            counts,edges 	= np.histogram(x, bins=bins)
             edges 			= edges[1:]
             X 				= np.zeros((len(counts), 2))
             X[:,0] 			= edges
@@ -44,7 +44,6 @@ def run(TFIntervaldict,pad,threshold=0.5):
                 m = 0
             else:
                 m = 1
-            print w,k[1]
             distances[TF] = [w,k[1],p,m,x]
         
     return distances
