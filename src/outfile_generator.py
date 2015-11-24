@@ -45,12 +45,11 @@ def run(distancedict,outfiledir,bins):
         for k in range(len(matrix)):
             matrix[k,j] = matrix[k,j]/maximum
     
-    data = np.random.rand(4,4)
     fig, ax = plt.subplots()
-    heatmap = ax.pcolor(data, cmap=plt.cm.Blues)
+    heatmap = ax.pcolor(matrix, cmap=plt.cm.Blues)
     
     # put the major ticks at the middle of each cell
-    ax.set_xticks(np.arange(data.shape[0])+0.5, minor=False)
+    ax.set_xticks(np.arange(matrix.shape[0])+0.5, minor=False)
     
     # want a more natural, table-like display
     ax.xaxis.tick_top()
