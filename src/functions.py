@@ -74,8 +74,6 @@ def parse_fasta(fastafile,intervaldict):
         total += nucleotides[key]
     total = float(total)
     freq = [nucleotides['a']/total,nucleotides['c']/total,nucleotides['g']/total,nucleotides['t']/total]
-    
-    print intervaldict['chr1'][0:5]
     return intervaldict,freq
 
 #Input: databasefile = file containing PSSMs for all TFs, TFs = list of TFs to

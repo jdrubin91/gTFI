@@ -16,10 +16,11 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
     sequencelist = list()
     for chrom in intervaldict:
         for interval in intervaldict[chrom]:
-            forward = interval[2]
-            reverse = functions.reverse(forward)
-            sequencelist.append(forward)
-            sequencelist.append(reverse)
+            if len(interval[2]) > 0:
+                forward = interval[2]
+                reverse = functions.reverse(forward)
+                sequencelist.append(forward)
+                sequencelist.append(reverse)
     args = [0] * len(sequencelist)
     for TF in TFPSSMdict:
         print TF
