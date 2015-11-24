@@ -17,7 +17,9 @@ def run(distancedict,outfiledir,bins):
     outfile = open(outfiledir,'w')
     outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)\tDistance List")
     outfile.write("\n")
+    column_labels = list()
     for item in sorted_distances:
+        column_labels.append(item[0])
         outfile.write(str(item[0]))
         outfile.write("\t")
         outfile.write(str(item[1][0]))
@@ -43,7 +45,6 @@ def run(distancedict,outfiledir,bins):
         for k in range(len(matrix)):
             matrix[k,j] = matrix[k,j]/maximum
     
-    row_labels = list('W')
     data = np.random.rand(4,4)
     fig, ax = plt.subplots()
     heatmap = ax.pcolor(data, cmap=plt.cm.Blues)
@@ -54,5 +55,5 @@ def run(distancedict,outfiledir,bins):
     # want a more natural, table-like display
     ax.xaxis.tick_top()
     
-    ax.set_xticklabels(row_labels, minor=False)
-    plt.savefig(functions.parent_dir(outfiledir) + 'figure.png')
+    ax.set_xticklabels(column_labels, minor=False)
+    plt.savefig(functions.parent_dir(outfiledir) + '/OUTFILES/figure.png')
