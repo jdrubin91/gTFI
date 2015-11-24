@@ -6,16 +6,17 @@ import EM_algorithm as em
 
 #Input: TFIntervaldict is the output of motif_scanner.  It is a dictionary formatted
 #dict[TF] = [[interval position 1, motif width, hit likelihood score],
-#[interval position 2,...],...,[interval position n, ...]].
+#[interval position 2,...],...,[interval position n, ...]] and amount of pad used
+#to calculate distance of motif to center of interval
 #Output:
-def run(TFIntervaldict):
+def run(TFIntervaldict,pad):
     for TF in TFIntervaldict:
         X = list()
         for array in TFIntervaldict[TF]:
             for interval in array:
                 for position in interval:
                     if position[2] != np.inf:
-                       X.append((position[0]+position[1]/2)-1500)
+                       X.append((position[0]+position[1]/2)-pad)
             
 
         print X
