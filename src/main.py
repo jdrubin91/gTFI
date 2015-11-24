@@ -12,6 +12,7 @@ import functions
 import intervals_to_fasta
 import motif_scanner
 import motif_distance_analyzer
+import outfile_generator
 
 
 #Specify path to interval file
@@ -26,6 +27,8 @@ TFs = sys.argv[3]
 #Specify transcription factor databse of position-specific scoring matrices (can
 #use any database in MEME format)
 databasefile = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
+#Specify outfile directory
+outfiledir = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/OUTFILES/TF_Activation.txt'
 
 def run():
     start_time = time.time()
@@ -36,5 +39,5 @@ def run():
     TFIntervaldict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
     print "Done in: %ss\nAnalyzing motif distances..." %(time.time()-start_time)
     distances = motif_distance_analyzer.run(TFIntervaldict,windowsize/2)
-    print distances
+    outfile_generator.run(distances,outfiledir)
     print "Done in: %ss" %(time.time()-start_time)

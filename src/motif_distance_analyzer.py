@@ -1,6 +1,5 @@
 __author__ = 'Jonathan Rubin'
 
-import functions
 import math
 import scipy
 import numpy as np
