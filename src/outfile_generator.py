@@ -2,6 +2,8 @@ __author__ = 'Jonathan Rubin'
 
 from operator import itemgetter
 import numpy as np
+import matplotlib.pyplot as plt
+import functions
 
 #Input: distancedict is a dictionary formatted dict[TF] = [signal/noise,p-val for
 #uniform distribution, p-val for centered at 0, bimodality (1=True), list of distances.
@@ -23,10 +25,10 @@ def run(distancedict,outfiledir,bins):
         outfile.write(str(item[1][2]))
         outfile.write("\t")
         outfile.write(str(item[1][3]))
-        outfile.write("\t")
-        for val in item[1][4]:
-            outfile.write(str(val))
-            outfile.write(",")
+        #outfile.write("\t")
+        #for val in item[1][4]:
+        #    outfile.write(str(val))
+        #    outfile.write(",")
         outfile.write("\n")
     
     
@@ -39,4 +41,16 @@ def run(distancedict,outfiledir,bins):
         for k in range(len(matrix)):
             matrix[k,j] = matrix[k,j]/maximum
     
-    print matrix
+    row_labels = list('W')
+    data = np.random.rand(4,4)
+    fig, ax = plt.subplots()
+    heatmap = ax.pcolor(data, cmap=plt.cm.Blues)
+    
+    # put the major ticks at the middle of each cell
+    ax.set_xticks(np.arange(data.shape[0])+0.5, minor=False)
+    
+    # want a more natural, table-like display
+    ax.xaxis.tick_top()
+    
+    ax.set_xticklabels(row_labels, minor=False)
+    plt.savefig(functions.parent_dir(outfiledir) + 'figure.png')
