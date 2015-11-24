@@ -5,6 +5,7 @@ import math
 import scipy
 import numpy as np
 import EM_algorithm as em
+import scipy.special
 
 #Input: TFIntervaldict is the output of motif_scanner.  It is a dictionary formatted
 #dict[TF] = [[interval position 1, motif width, hit likelihood score],
