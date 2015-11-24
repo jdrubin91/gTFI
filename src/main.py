@@ -7,10 +7,11 @@ __author__ = 'Jonathan Rubin'
 
 import os
 import sys
+import time
 import functions
 import intervals_to_fasta
 import motif_scanner
-import time
+import motif_distance_analyzer
 
 
 #Specify path to interval file
@@ -33,5 +34,6 @@ def run():
     print background_frequencies,totalintervals
     print "Done in: %ss\nScanning intervals for motif occurrences..." %(time.time()-start_time)
     TFIntervaldict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
-    print TFIntervaldict
+    print "Done in: %ss\nAnalyzing motif distances..." %(time.time()-start_time)
+    motif_distance_analyzer.run(TFIntervaldict)
     print "Done in: %ss" %(time.time()-start_time)
