@@ -46,10 +46,17 @@ def run(distancedict,outfiledir,bins):
             matrix[k,j] = matrix[k,j]/maximum
     
     fig, ax = plt.subplots()
+    fig.set_size_inches(10, 30)
     heatmap = ax.pcolor(matrix, cmap=plt.cm.hot)
     
-    # put the major ticks at the middle of each cell
+    # put the major ticks at the middle of each cell for x, turn off y ticks
     ax.set_xticks(np.arange(matrix.shape[0])+0.5, minor=False)
+    plt.tick_params(
+    axis='y',          # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    bottom='off',      # ticks along the bottom edge are off
+    top='off',         # ticks along the top edge are off
+    labelbottom='off')
     
     # want a more natural, table-like display
     ax.xaxis.tick_top()
