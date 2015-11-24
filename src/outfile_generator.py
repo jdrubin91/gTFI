@@ -15,6 +15,7 @@ def run(distancedict,outfiledir,bins):
     outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)\tDistance List")
     outfile.write("\n")
     for item in sorted_distances:
+        print item
         outfile.write(str(item[0]))
         outfile.write("\t")
         outfile.write(str(item[1][0]))
