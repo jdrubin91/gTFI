@@ -8,8 +8,8 @@ from multiprocessing import Pool
 #provided fasta file, TFs is a list of transcription factors to be analyzed 
 #(if none specified, use all TFs in HOCOMOCOv10), and databasefile is the path to
 #the motif database containing PSSMs in MEME format.
-#Output: TF_Analysis.txt - a file containing ________________________, temp.txt -
-#a file containing _______________________
+#Output: A dictionary formatted dict[TF] = [[interval position 1, motif width, hit
+#likelihood score],[interval position 2,...],...,[interval position n, ...]]
 def run(intervaldict, background_frequencies, TFs, databasefile):
     TFIntervaldict = dict()
     TFPSSMdict = functions.parse_PSSM(databasefile,TFs)

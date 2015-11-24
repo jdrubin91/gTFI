@@ -31,7 +31,7 @@ def run():
     print "Running gTFI...\nCalculating background frequencies and converting files to fasta format..."
     intervaldict,background_frequencies,totalintervals = intervals_to_fasta.run(intervalfile,fastafile,windowsize/2)
     print background_frequencies,totalintervals
-    print "Done in: %s\nScanning intervals for motif occurrences..." %(time.time()-start_time)
-    newdict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
-    print newdict
-    print "Done in: %s" %(time.time()-start_time)
+    print "Done in: %ss\nScanning intervals for motif occurrences..." %(time.time()-start_time)
+    TFIntervaldict = motif_scanner.run(intervaldict, background_frequencies, TFs, databasefile)
+    print TFIntervaldict
+    print "Done in: %ss" %(time.time()-start_time)
