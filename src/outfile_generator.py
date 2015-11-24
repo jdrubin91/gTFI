@@ -51,15 +51,19 @@ def run(distancedict,outfiledir,bins):
     
     # put the major ticks at the middle of each cell for x, turn off y ticks
     ax.set_xticks(np.arange(matrix.shape[0])+0.5, minor=False)
-    plt.tick_params(
-    axis='y',          # changes apply to the x-axis
-    which='both',      # both major and minor ticks are affected
-    bottom='off',      # ticks along the bottom edge are off
-    top='off',         # ticks along the top edge are off
-    labelbottom='off')
+
+    #plt.tick_params(
+    #axis='y',          # changes apply to the x-axis
+    #which='both',      # both major and minor ticks are affected
+    #bottom='off',      # ticks along the bottom edge are off
+    #top='off',         # ticks along the top edge are off
+    #labelbottom='off')
     
     # want a more natural, table-like display
     ax.xaxis.tick_top()
+
     
     ax.set_xticklabels(column_labels, minor=False)
+    plt.xticks(rotation=90)
+    ax.get_yaxis().set_visible(False)
     plt.savefig(functions.parent_dir(outfiledir) + '/figure.png')
