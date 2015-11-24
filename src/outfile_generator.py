@@ -10,12 +10,10 @@ import numpy as np
 #Centered(0) p-val\tBimodality (1=True)\tDistance List"
 def run(distancedict,outfiledir,bins):
     sorted_distances = sorted(distancedict.items(), key=itemgetter(1))
-    print sorted_distances
     outfile = open(outfiledir,'w')
     outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)\tDistance List")
     outfile.write("\n")
     for item in sorted_distances:
-        print item
         outfile.write(str(item[0]))
         outfile.write("\t")
         outfile.write(str(item[1][0]))
@@ -24,7 +22,9 @@ def run(distancedict,outfiledir,bins):
         outfile.write("\t")
         outfile.write(str(item[1][2]))
         outfile.write("\t")
-        for val in item[1][3]:
+        outfile.write(str(item[1][3]))
+        outfile.write("\t")
+        for val in item[1][4]:
             outfile.write(str(val))
             outfile.write(",")
         outfile.write("\n")
@@ -32,6 +32,6 @@ def run(distancedict,outfiledir,bins):
     
     matrix = np.zeros((bins,len(sorted_distances)))
     for i in range(len(sorted_distances)):
-        matrix[i,:] = sorted_distances[i][1][3]
+        matrix[i,:] = sorted_distances[i][1][4]
     
     print matrix
