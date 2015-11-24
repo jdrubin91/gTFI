@@ -14,6 +14,7 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
     TFIntervaldict = dict()
     TFPSSMdict = functions.parse_PSSM(databasefile,TFs)
     sequencelist = list()
+    count = 0
     for chrom in intervaldict:
         for interval in intervaldict[chrom]:
             if len(interval[2]) > 0:
@@ -21,6 +22,7 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
                 reverse = functions.reverse(forward)
                 sequencelist.append(forward)
                 sequencelist.append(reverse)
+                count += 1
     args = [0] * len(sequencelist)
     for TF in TFPSSMdict:
         print TF
@@ -30,5 +32,7 @@ def run(intervaldict, background_frequencies, TFs, databasefile):
         pool = Pool(processes=64)
         result = pool.map(functions.LL_calc,args)
         TFIntervaldict[TF].append(result)
+    
+    print "Overlapping intervals: ", count
             
     return TFIntervaldict
