@@ -11,15 +11,14 @@ import EM_algorithm as em
 def run(TFIntervaldict):
     for TF in TFIntervaldict:
         X = list()
-        for interval in TFIntervaldict[TF]:
-            for position1 in interval:
-                for position2 in position1:
-                    if position2[2] != np.inf:
-                        print position2
+        for array in TFIntervaldict[TF]:
+            for interval in array:
+                for position in interval:
+                    if position[2] != np.inf:
+                       X.append((position[0]+position[1]/2)-1500)
             
-        #    if window[2] != np.inf:
-        #        X.append((window[0]+window[1]/2)-1500)
-        #print X
+
+        print X
         
             
     #distances = dict()
