@@ -46,6 +46,7 @@ def run(distancedict,outfiledir,bins):
         maximum = max(matrix[:,j])
         for k in range(bins):
             matrix[k,j] = matrix[k,j]/maximum
+    print matrix
     
     fig, ax = plt.subplots()
     figheight = int(bins/10)
