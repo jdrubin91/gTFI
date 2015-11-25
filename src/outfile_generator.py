@@ -53,10 +53,12 @@ def run(distancedict,outfiledir,bins):
     print matrix
     
     fig, ax = plt.subplots()
+    #if columns <= 10:
+    #    figwidth = 10
     figheight = bins/20.0
-    figwidth = columns/2.0
-    #fig.set_size_inches(figwidth, figheight)
-    fig.set_size_inches(30,10)
+    figwidth = columns
+    fig.set_size_inches(figwidth, figheight)
+    #fig.set_size_inches(30,10)
     heatmap = ax.pcolor(matrix, cmap=plt.cm.hot)
     
     # put the major ticks at the middle of each cell for x, turn off y ticks
