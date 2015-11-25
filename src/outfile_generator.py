@@ -54,7 +54,7 @@ def run(distancedict,outfiledir,bins):
     
     fig, ax = plt.subplots()
     if columns <= 10:
-        figwidth = 10
+        figwidth = 3
     else:
         figwidth = columns
     figheight = bins/20.0
