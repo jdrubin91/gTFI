@@ -29,9 +29,9 @@ def prep_outdir(intervalfilepath):
     gTFI_OUT = parent_dir(intervalfilepath) + '/gTFI_OUT'
     Int_OUT = parent_dir(intervalfilepath) + '/gTFI_OUT' + get_filename(intervalfilepath).split('.')[0]
     if not os.path.exists(gTFI_OUT):
-        os.makedir(gTFI_OUT)
+        os.mkdir(gTFI_OUT)
     if not os.path.exists(Int_OUT):
-        os.makedir(Int_OUT)
+        os.mkdir(Int_OUT)
         
     return Int_OUT
 
