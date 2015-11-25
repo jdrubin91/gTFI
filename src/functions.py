@@ -27,7 +27,7 @@ def get_filename(filepath):
 #in gTFI_OUT for the interval_file using its filename, returns path to out directory
 def prep_outdir(intervalfilepath):
     gTFI_OUT = parent_dir(intervalfilepath) + '/gTFI_OUT'
-    Int_OUT = parent_dir(intervalfilepath) + '/gTFI_OUT' + get_filename(intervalfilepath).split('.')[0]
+    Int_OUT = parent_dir(intervalfilepath) + '/gTFI_OUT/' + get_filename(intervalfilepath).split('.')[0]
     if not os.path.exists(gTFI_OUT):
         os.mkdir(gTFI_OUT)
     if not os.path.exists(Int_OUT):
