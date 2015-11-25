@@ -53,8 +53,8 @@ def run(distancedict,outfiledir,bins):
     print matrix
     
     fig, ax = plt.subplots()
-    figheight = int(bins/10)
-    figwidth = int(columns/10)
+    figheight = bins/10.0
+    figwidth = columns/10.0
     print "height: ", figheight
     print "width: ", figwidth
     fig.set_size_inches(figwidth, figheight)
