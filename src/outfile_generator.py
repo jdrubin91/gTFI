@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 import functions
 
 #Input: distancedict is a dictionary formatted dict[TF] = [signal/noise,p-val for
-#uniform distribution, p-val for centered at 0, bimodality (1=True), list of distances.
+#uniform distribution, p-val for centered at 0, bimodality (1=True)].
 #outfiledir is the desired full path to the output file
 #Output: File in outfiledir formatted "TF\tSignal/Noise\tUniform p-val\t
-#Centered(0) p-val\tBimodality (1=True)\tDistance List"
+#Centered(0) p-val\tBimodality (1=True)"
 def run(distancedict,outfiledir,bins):
     sorted_distances = sorted(distancedict.items(), key=itemgetter(1))
     print sorted_distances
@@ -53,12 +53,12 @@ def run(distancedict,outfiledir,bins):
     print matrix
     
     fig, ax = plt.subplots()
-    if columns <= 10:
-        figwidth = 3
-    else:
-        figwidth = columns
+    #if columns <= 10:
+    #    figwidth = 3
+    #else:
+    #    figwidth = columns
     figheight = bins/20.0
-    fig.set_size_inches(figwidth, figheight)
+    #fig.set_size_inches(figwidth, figheight)
     #fig.set_size_inches(30,10)
     heatmap = ax.pcolor(matrix, cmap=plt.cm.hot)
     
