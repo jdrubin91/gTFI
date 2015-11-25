@@ -42,9 +42,9 @@ def run(distancedict,outfiledir,bins):
     matrix = np.zeros((rows,columns))
     for i in range(columns):
         x = np.histogram(sorted_distances[i][1][4],bins=rows)[0]
-        maximum = max(x)
+        maximum = float(max(x))
         for j in range(rows):
-            matrix[j,i] = float(x[j]/maximum)
+            matrix[j,i] = x[j]/maximum
     #    matrix[:,i] = x
     #for j in range(columns):
     #    maximum = max(matrix[:,j])
