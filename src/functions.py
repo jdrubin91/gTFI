@@ -90,6 +90,7 @@ def parse_PSSM(databasefile,TFs):
                 for item in TFs:
                     if TF in item:
                         TFdict[TF] = list()
+                        print "True"
             elif line[0].isdigit():
                 if TF in TFdict:
                     TFdict[TF].append(line.strip().split())
