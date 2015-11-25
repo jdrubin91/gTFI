@@ -31,8 +31,8 @@ databasefile = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) 
 bins = 200
 #Specify threshold for likelihood score
 threshold = 0.5
-#Specify outfile directory
-outfiledir = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/OUTFILES/TF_Activation.txt'
+#Make outfile directory
+outfiledir = functions.prep_outdir(intervalfile)
 
 def run():
     start_time = time.time()

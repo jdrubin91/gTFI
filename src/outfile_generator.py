@@ -14,9 +14,7 @@ import functions
 #Centered(0) p-val\tBimodality (1=True)"
 def run(distancedict,outfiledir,bins):
     sorted_distances = sorted(distancedict.items(), key=itemgetter(1))
-    print sorted_distances
-    print "length sorted_distances: ", len(sorted_distances)
-    outfile = open(outfiledir,'w')
+    outfile = open(outfiledir + '/TF_Activation.txt','w')
     outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)\tDistance list")
     outfile.write("\n")
     column_labels = list()
@@ -71,4 +69,4 @@ def run(distancedict,outfiledir,bins):
     ax.set_xticklabels(column_labels, minor=False)
     plt.xticks(rotation=90)
     ax.get_yaxis().set_visible(False)
-    plt.savefig(functions.parent_dir(outfiledir) + '/figure.png')
+    plt.savefig(outfiledir + '/TF_Activation.png')

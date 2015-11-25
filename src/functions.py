@@ -2,6 +2,7 @@ __author__ = 'Jonathan Rubin'
 
 import numpy as np
 import math
+import os
 
 ##Functions used in gTFI pipeline
 
@@ -12,6 +13,27 @@ def parent_dir(directory):
     newdir = '/'.join(pathlist[0:len(pathlist)-1])
     
     return newdir
+
+#Input: A filepath
+#Output: Filename
+def get_filename(filepath):
+    pathlist = filepath.split('/')
+    filename = pathlist[len(pathlist)-1]
+    
+    return filename
+
+#Input: Complete path to interval file
+#Output: Creates gTFI_OUT directory in interval file directory and creates a directory
+#in gTFI_OUT for the interval_file using its filename, returns path to out directory
+def prep_outdir(intervalfilepath):
+    gTFI_OUT = parent_dir(intervalfilepath) + '/gTFI_OUT'
+    Int_OUT = parent_dir(intervalfilepath) + '/gTFI_OUT' + get_filename(intervalfilepath).split('.')[0]
+    if not os.path.exists(gTFI_OUT):
+        os.makedir(gTFI_OUT)
+    if not os.path.exists(Int_OUT):
+        os.makedir(Int_OUT)
+        
+    return Int_OUT
 
 #Input: interval file formatted 'chomr\tstart\tstop\tinfo' (any header lines 
 #must have first character = '#')
