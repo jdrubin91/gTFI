@@ -53,10 +53,11 @@ def run(distancedict,outfiledir,bins):
     print matrix
     
     fig, ax = plt.subplots()
-    #if columns <= 10:
-    #    figwidth = 10
+    if columns <= 10:
+        figwidth = 10
+    else:
+        figwidth = columns
     figheight = bins/20.0
-    figwidth = columns
     fig.set_size_inches(figwidth, figheight)
     #fig.set_size_inches(30,10)
     heatmap = ax.pcolor(matrix, cmap=plt.cm.hot)
