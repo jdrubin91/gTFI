@@ -17,7 +17,7 @@ def run(distancedict,outfiledir,bins):
     print sorted_distances
     print "length sorted_distances: ", len(sorted_distances)
     outfile = open(outfiledir,'w')
-    outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)")
+    outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)\tDistance list")
     outfile.write("\n")
     column_labels = list()
     for item in sorted_distances:
@@ -31,10 +31,10 @@ def run(distancedict,outfiledir,bins):
         outfile.write(str(item[1][2]))
         outfile.write("\t")
         outfile.write(str(item[1][3]))
-        #outfile.write("\t")
-        #for val in item[1][4]:
-        #    outfile.write(str(val))
-        #    outfile.write(",")
+        outfile.write("\t")
+        for val in item[1][4]:
+            outfile.write(str(val))
+            outfile.write(",")
         outfile.write("\n")
     
     columns = len(sorted_distances)
