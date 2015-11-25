@@ -21,5 +21,5 @@ if __name__ == "__main__":
     directory = '/scratch/Shares/dowell/TFIT/Danko2013/'
     phrase = 'bed'
     fastafile = '/scratch/Shares/dowell/pubgro/genomefiles/human/hg19/hg19ucsc/hg19_all.fa'
-    TFs = None
+    TFs = ''
     run(directory,phrase,fastafile,TFs)
