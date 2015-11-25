@@ -88,7 +88,7 @@ def parse_PSSM(databasefile,TFs):
             if 'MOTIF' in line:
                 TF = line.strip().split(' ')[1]
                 for item in TFs:
-                    if TF in item:
+                    if item in TF:
                         TFdict[TF] = list()
             elif line[0].isdigit():
                 if TF in TFdict:

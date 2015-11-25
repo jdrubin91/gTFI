@@ -48,7 +48,9 @@ def run(distancedict,outfiledir,bins):
             matrix[k,j] = matrix[k,j]/maximum
     
     fig, ax = plt.subplots()
-    fig.set_size_inches(columns/10, bins/10)
+    figheight = int(bins/10)
+    figwidth = int(columns/10)
+    fig.set_size_inches(figwidth, figheight)
     heatmap = ax.pcolor(matrix, cmap=plt.cm.hot)
     
     # put the major ticks at the middle of each cell for x, turn off y ticks
