@@ -14,6 +14,8 @@ import functions
 #Centered(0) p-val\tBimodality (1=True)\tDistance List"
 def run(distancedict,outfiledir,bins):
     sorted_distances = sorted(distancedict.items(), key=itemgetter(1))
+    print sorted_distances
+    print "length sorted_distances: ", len(sorted_distances)
     outfile = open(outfiledir,'w')
     outfile.write("TF\tSignal/Noise\tUniform p-val\tCentered(0) p-val\tBimodality (1=True)")
     outfile.write("\n")
@@ -51,13 +53,6 @@ def run(distancedict,outfiledir,bins):
     
     # put the major ticks at the middle of each cell for x, turn off y ticks
     ax.set_xticks(np.arange(matrix.shape[0])+0.5, minor=False)
-
-    #plt.tick_params(
-    #axis='y',          # changes apply to the x-axis
-    #which='both',      # both major and minor ticks are affected
-    #bottom='off',      # ticks along the bottom edge are off
-    #top='off',         # ticks along the top edge are off
-    #labelbottom='off')
     
     # want a more natural, table-like display
     ax.xaxis.tick_top()
