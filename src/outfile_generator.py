@@ -38,13 +38,15 @@ def run(distancedict,outfiledir,bins):
         outfile.write("\n")
     
     columns = len(sorted_distances)
-    matrix = np.zeros((bins,columns))
-    for i in range(len(sorted_distances)):
-        x = np.histogram(sorted_distances[i][1][4],bins)[0]
+    rows = bins
+    matrix = np.zeros((rows,columns))
+    print matrix
+    for i in range(columns):
+        x = np.histogram(sorted_distances[i][1][4],bins=rows)[0]
         matrix[:,i] = x
     for j in range(columns):
         maximum = max(matrix[:,j])
-        for k in range(bins):
+        for k in range(rows):
             matrix[k,j] = matrix[k,j]/maximum
     print matrix
     
