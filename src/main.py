@@ -23,7 +23,7 @@ fastafile = sys.argv[2]
 windowsize = 3000
 #Specify transcription factors that will be analyzed, if none specified use all
 #TFs in HOCOMOCOv10 database
-TFs = sys.argv[3]
+TFs = sys.argv[3].split(',')
 #Specify transcription factor databse of position-specific scoring matrices (can
 #use any database in MEME format)
 databasefile = functions.parent_dir(os.path.dirname(os.path.abspath(__file__))) + '/INFILES/HOCOMOCOv10_HUMAN_mono_meme_format.meme'
