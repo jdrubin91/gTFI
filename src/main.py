@@ -23,6 +23,7 @@ fastafile = sys.argv[2]
 windowsize = 3000
 #Specify transcription factors that will be analyzed, if none specified use all
 #TFs in HOCOMOCOv10 database
+TFs = None
 if len(sys.argv) > 3:
     TFs = sys.argv[3].split(',')
 #Specify transcription factor databse of position-specific scoring matrices (can

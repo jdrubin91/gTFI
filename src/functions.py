@@ -105,7 +105,7 @@ def parse_fasta(fastafile,intervaldict):
 def parse_PSSM(databasefile,TFs):
     TFdict = dict()
     databasefile = open(databasefile)
-    if len(TFs) != 0:
+    if TFs != None:
         for line in databasefile:
             if 'MOTIF' in line:
                 TF = line.strip().split(' ')[1]
