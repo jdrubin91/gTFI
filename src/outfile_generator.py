@@ -50,7 +50,6 @@ def run(distancedict,outfiledir,bins):
     #    maximum = max(matrix[:,j])
     #    for k in range(rows):
     #        matrix[k,j] = matrix[k,j]/maximum
-    print matrix
     
     fig, ax = plt.subplots()
     #if columns <= 10:

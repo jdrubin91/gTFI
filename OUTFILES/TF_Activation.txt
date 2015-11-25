@@ -1,0 +1,2 @@
+TF	Signal/Noise	Uniform p-val	Centered(0) p-val	Bimodality (1=True)
+ETS1_HUMAN.H10MO.C	0.0166826348872	0.405887511471	0.199690126636	1
