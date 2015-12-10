@@ -24,6 +24,10 @@
 ### Pass enviroment variables to the job
 #PBS -V
 
+module load matplotlib_1.3.1
+module load scipy_0.14.0
+
+
 ### now call your program
 
 src=${arg1}
